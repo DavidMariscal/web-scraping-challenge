@@ -13,6 +13,7 @@ import time
 from urllib.parse import urlsplit
 
 
+
 # In[3]:
 
 def init_browser():
@@ -57,23 +58,20 @@ def scrape():
 
 
 # Get Mars Space Images through splinter module
-    image_url_featured = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-    browser.visit(image_url_featured)
-    time.sleep(3)
-
-
-# In[10]:
-
 
 # HTML Object 
+    image_url_featured = "https://www.jpl.nasa.gov/spaceimages/?search=&category=featured#submit"
+    browser.visit(image_url_featured)
+    time.sleep(3)
     html_image = browser.html
+ 
 
 # Parse HTML with Beautiful Soup
     soup = bs(html_image, 'html.parser')
 
 # Retrieve background-image url from style tag 
-    featured_image_url  = soup.find('article')['style'].replace('background-image: url(','').replace(');', '')[1:-1]
-
+   # featured_image_url  = soup.find('article')['style'].replace('background-image: url(','').replace(');', '')[1:-1]
+    featured_image_url= soup.find("img", class_="fancybox-image")["src"]
 # Website Url 
     main_url = 'https://www.jpl.nasa.gov'
 
@@ -152,12 +150,6 @@ def scrape():
 
 
 # In[19]:
-
-
-
- # mars_html_table = mars_df.to_html()
- # mars_html_table = mars_html_table.replace("\n", "")
-
 
 
 # In[20]:
